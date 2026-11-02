@@ -113,6 +113,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .langbar .in { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
 .langbar button { padding: 5px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--panel); color: var(--dim); font: 600 13px var(--f-body); cursor: pointer; }
 .langbar button[aria-pressed="true"] { border-color: var(--pink); color: var(--ink); background: var(--pink-soft); }
+/* 맨 위 알림 띠: 데모 + 로컬 AI 학습 중 (제작자 2026-11-02) */
+.notice { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; padding: 12px 16px; border: 1px solid var(--pink); border-radius: 12px; background: var(--pink-soft); }
+.notice .demo { flex: none; padding: 4px 12px; border-radius: 99px; background: var(--pink); color: #1a1218; font: 800 13px var(--f-display); letter-spacing: 0.06em; }
+.notice p { margin: 0; font-weight: 700; line-height: 1.5; }
+.notice small { display: block; color: var(--dim); font-weight: 500; }
 :lang(ja) body, :lang(ja) { --f-body: 'Noto Sans JP', 'Noto Sans KR', sans-serif; --f-line: 'Noto Sans JP', sans-serif; }
 :lang(zh-Hans) { --f-body: 'Noto Sans SC', 'Noto Sans KR', sans-serif; --f-line: 'Noto Sans SC', sans-serif; }
 :lang(zh-Hant) { --f-body: 'Noto Sans TC', 'Noto Sans KR', sans-serif; --f-line: 'Noto Sans TC', sans-serif; }
@@ -237,6 +242,14 @@ const L = {
   },
 };
 const ORDER = ['ko', 'en', 'ja', 'zh-Hans', 'zh-Hant'];
+// 맨 위 알림 띠 (언어별)
+const NOTICE = {
+  ko: { demo: '데모', ai: '현재 로컬 AI 모델은 학습 중에 있습니다.', eta: '예상 학습 완료일: 11월 5일' },
+  en: { demo: 'DEMO', ai: 'The local AI model is currently in training.', eta: 'Estimated completion: November 5' },
+  ja: { demo: 'デモ', ai: '現在、ローカルAIモデルは学習中です。', eta: '学習完了予定日：11月5日' },
+  'zh-Hans': { demo: '试玩版', ai: '本地AI模型目前正在训练中。', eta: '预计训练完成日：11月5日' },
+  'zh-Hant': { demo: '試玩版', ai: '本機AI模型目前正在訓練中。', eta: '預計訓練完成日：11月5日' },
+};
 const SHOTS = ['01-store-choice.png', '02-week-chat.png', '03-free-play.png', '04-track-cg.png', '05-beach-cg.png', '06-prologue-nvl.png'];
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const page = document.getElementById('page'), langBox = document.getElementById('langs');
@@ -248,7 +261,9 @@ function render() {
   document.documentElement.lang = lang; document.title = T.title;
   langBox.innerHTML = ORDER.map((k) => `<button type="button" data-l="${k}" aria-pressed="${k === lang}" lang="${k}">${esc(L[k].name)}</button>`).join('');
   const fig = (f) => `<figure class="shot"><img src="${img(f)}" alt="" loading="lazy"><figcaption>${esc(T.caps[f])}</figcaption></figure>`;
+  const N = NOTICE[lang];
   page.innerHTML = `
+  <div class="notice" role="status"><span class="demo">${esc(N.demo)}</span><p>${esc(N.ai)}<small>${esc(N.eta)}</small></p></div>
   <section class="top">
     <div>
       <figure class="viewer" style="margin:0"><img id="main" alt=""><figcaption id="cap"></figcaption></figure>
