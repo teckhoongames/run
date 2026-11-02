@@ -285,7 +285,7 @@ function render() {
       <h2>${esc(T.featH)}</h2>
       <ul class="feat">${T.feat.map(([a, b]) => `<li><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ul>
       ${fig('01-store-choice.png')}
-      ${T.sec.map(([h, items, shot]) => `<h2>${esc(h)}</h2><ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>${shot ? fig(shot) : ''}`).join('')}
+      ${T.sec.map(([h, items, shot], i) => `<h2>${esc(h)}</h2><ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>${shot ? fig(shot) : ''}${i === 2 ? `<figure class="shot"><img src="${img('07-expressions.png')}" alt="${esc(T.exprC)}" loading="lazy"><figcaption>${esc(T.exprC)}</figcaption></figure>` : ''}`).join('')}
     </article>
     <aside class="side">
       <div class="box">
