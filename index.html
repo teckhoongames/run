@@ -6,7 +6,7 @@
 <meta name="description" content="런!(Run!) - 100m 선수 채아의 24주를 함께하는 육성 연애 비주얼 노벨">
 <meta property="og:title" content="런! (Run!)">
 <meta property="og:image" content="key.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://docs.google.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'none'; frame-src https://docs.google.com; object-src 'none'; base-uri 'none'; form-action https://docs.google.com; frame-ancestors 'none'">
 <meta name="referrer" content="no-referrer">
 <style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -294,14 +294,29 @@ function render() {
       </div>
     </aside>
   </section>
-  <section class="box sg" aria-labelledby="sg-h"><h3 id="sg-h">${esc(T.sg.h)}</h3><p class="note" style="margin:0 0 10px">${esc(T.sg.p)}</p><iframe class="gform" title="${esc(T.sg.h)}" src="https://docs.google.com/forms/d/e/1FAIpQLSfQh5cRY9vDxssgoOFTt6E1CEpqs1Rj7jQlnhXB4MF00UI1Sg/viewform?embedded=true&hl=${({ko:"ko",en:"en",ja:"ja","zh-Hans":"zh-CN","zh-Hant":"zh-TW"})[lang]}" loading="lazy" referrerpolicy="no-referrer"></iframe></section>
+  <section class="box sg" aria-labelledby="sg-h"><h3 id="sg-h">${esc(T.sg.h)}</h3><p class="note" style="margin:0 0 10px">${esc(T.sg.p)}</p><form id="sg-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfQh5cRY9vDxssgoOFTt6E1CEpqs1Rj7jQlnhXB4MF00UI1Sg/formResponse" method="POST" target="gf-sink"><label for="sg-text" class="sr">${esc(T.sg.h)}</label><textarea id="sg-text" maxlength="1000" rows="4" placeholder="${esc(T.sg.ph)}"></textarea><input type="hidden" name="entry.1744762176" id="sg-val"><div class="sg-row"><span class="note" id="sg-msg" role="status"></span><button type="submit" id="sg-send">${esc(T.sg.send)}</button></div></form><iframe name="gf-sink" id="gf-sink" title="-" hidden></iframe></section>
   <footer>© Teckhoon Games</footer>`;
   const main = document.getElementById('main'), cap = document.getElementById('cap'), thumbs = document.getElementById('thumbs');
   const all = [...SHOTS, 'key'];
   const show = (i) => { main.src = img(all[i]); main.alt = T.caps[all[i]]; cap.textContent = T.caps[all[i]]; [...thumbs.children].forEach((b, k) => b.setAttribute('aria-current', String(k === i))); };
   all.forEach((f, i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', T.caps[f]); b.innerHTML = `<img src="${img(f)}" alt="" loading="lazy">`; b.onclick = () => show(i); thumbs.append(b); });
   show(0);
-
+  setupSuggest(T.sg);
+}
+// 건의사항: 우리 칸에서 쓰고, 보낼 때만 구글 폼(응답은 제작자 구글 계정에서만 보임)으로 넘김. 글 앞에 [언어]
+let lastAt = 0;
+function setupSuggest(S) {
+  const form = document.getElementById('sg-form'), text = document.getElementById('sg-text'), val = document.getElementById('sg-val'), send = document.getElementById('sg-send'), msg = document.getElementById('sg-msg'), sink = document.getElementById('gf-sink');
+  let waiting = false;
+  sink.addEventListener('load', () => { if (!waiting) return; waiting = false; text.value = ''; msg.textContent = S.ok; send.disabled = false; });
+  form.addEventListener('submit', (e) => {
+    const t = text.value.trim();
+    if (!t) { e.preventDefault(); msg.textContent = S.empty; return; }
+    if (Date.now() - lastAt < 30000) { e.preventDefault(); msg.textContent = S.wait; return; }
+    lastAt = Date.now(); waiting = true; send.disabled = true; msg.textContent = S.sending;
+    val.value = '[' + lang + '] ' + t.slice(0, 1000);
+    setTimeout(() => { if (waiting) { waiting = false; send.disabled = false; msg.textContent = S.fail; } }, 15000);
+  });
 }
 langBox.addEventListener('click', (e) => { const b = e.target.closest('[data-l]'); if (!b || b.dataset.l === lang) return; lang = b.dataset.l; try { localStorage.setItem('run-site-lang', lang); } catch {} try { history.replaceState(null, '', '#' + lang); } catch {} render(); window.scrollTo(0, 0); });
 
