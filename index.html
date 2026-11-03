@@ -244,11 +244,11 @@ const L = {
 const ORDER = ['ko', 'en', 'ja', 'zh-Hans', 'zh-Hant'];
 // 맨 위 알림 띠 (언어별)
 const NOTICE = {
-  ko: { demo: '데모', ai: '현재 로컬 AI 모델은 학습 중에 있습니다.', eta: '예상 학습 완료일: 11월 5일' },
-  en: { demo: 'DEMO', ai: 'The local AI model is currently in training.', eta: 'Estimated completion: November 5' },
-  ja: { demo: 'デモ', ai: '現在、ローカルAIモデルは学習中です。', eta: '学習完了予定日：11月5日' },
-  'zh-Hans': { demo: '试玩版', ai: '本地AI模型目前正在训练中。', eta: '预计训练完成日：11月5日' },
-  'zh-Hant': { demo: '試玩版', ai: '本機AI模型目前正在訓練中。', eta: '預計訓練完成日：11月5日' },
+  ko: { demo: '데모', ai: '현재 로컬 AI는 학습 중이라 대사나 문장이 미흡할 수 있습니다. 정식 출시 전까지 학습을 완료하도록 하겠습니다. ChatGPT나 Claude를 구독 중이시라면 가급적 해당 기능을 사용해 주시면 감사하겠습니다.', eta: '지금 데모에는 목소리가 들어가 있지 않습니다. 2026년 11월 15일 업데이트로 데모의 모든 대사에 한국어 더빙이 들어갈 예정입니다.' },
+  en: { demo: 'DEMO', ai: 'The local AI is still in training, so its lines and sentences may feel a little rough. We\'ll finish training it before the full release. If you subscribe to ChatGPT or Claude, we\'d appreciate it if you used that option instead.', eta: 'This demo currently has no voice acting. An update on November 15, 2026 will add Korean voice acting to every line in the demo.' },
+  ja: { demo: 'デモ', ai: '現在、ローカルAIは学習中のため、セリフや文章が不自然な場合があります。正式リリースまでに学習を完了させる予定です。ChatGPTまたはClaudeをご契約中の方は、できるだけそちらの機能をご利用いただけると幸いです。', eta: '現在の体験版にはボイスが入っていません。2026年11月15日のアップデートで、体験版のすべてのセリフに韓国語ボイスが入る予定です。' },
+  'zh-Hans': { demo: '试玩版', ai: '目前本地AI仍在训练中，台词和句子可能不够自然。我们将在正式发售前完成训练。如果您订阅了ChatGPT或Claude，建议尽量使用相应功能。', eta: '目前试玩版暂无语音。2026年11月15日的更新将为试玩版的所有台词加入韩语配音。' },
+  'zh-Hant': { demo: '試玩版', ai: '目前本機AI仍在訓練中，台詞和句子可能不夠自然。我們將在正式發售前完成訓練。如果您訂閱了ChatGPT或Claude，建議盡量使用相應功能。', eta: '目前試玩版暫無語音。2026年11月15日的更新將為試玩版的所有台詞加入韓語配音。' },
 };
 const SHOTS = ['01-store-choice.png', '02-week-chat.png', '03-free-play.png', '04-track-cg.png', '05-beach-cg.png', '06-prologue-nvl.png'];
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
