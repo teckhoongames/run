@@ -128,127 +128,1022 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <div class="wrap" id="page"></div>
 
 <script>
-// 언어별 내용: 상점 설명(store/description/*.md) 그대로 + 제작자가 사이트에서 고친 점(보이스 문구 뺌, 진도 '중 일부', 사양 문장 등)을 모든 언어에 같게
+// 언어별 내용: 상점 설명(store/description/*.md)과 같게 맞춤 (2026-11-04) + 제작자가 사이트에서 고친 점(보이스 문구 뺌, 진도 '중 일부', 사양 문장 등)을 모든 언어에 같게
 const L = {
-  ko: { name: '한국어', title: '런! (Run!)',
-    lead: '다친 발목, 내가 건넨 운동화, 그리고 함께 달리기로 한 약속. 100m 선수 채아의 24주를 함께하는 육성 연애 비주얼 노벨.',
-    info: [['개발·배급', '택훈 게임즈 (Teckhoon Games)'], ['정식 출시', '출시 예정'], ['체험판', '프롤로그 ~ 6주차 중 일부'], ['플랫폼', 'Windows 10 / 11 (64비트)']],
-    tags: ['비주얼 노벨', '육성 시뮬레이션', '연애', 'AI 대화', '멀티 엔딩', '스포츠'], cta: '스토브에서 보기', ctaSub: '체험판 공개 예정',
-    quote: '"내가 준 운동화를 신고 뛰다가, 그 애가 넘어졌다."',
-    intro: ['육상부 100m 선수 채아와 함께하는 24주예요.', '미안함으로 시작된 한 달, 매일 아침 7시의 러닝 메이트 계약, 그리고 9월 전국체전 예선이 기다려요.', '기록과 마음, 둘 다 붙잡을 수 있을까?'],
-    featH: '주요 특징', feat: [['육성 시뮬레이션', '한 주에 두 가지 활동을 골라 채아의 기록과 컨디션을 관리해요.'], ['AI 메시지', '정해진 선택지 없이, 하고 싶은 말을 보내면 채아가 직접 답장해요.'], ['AI채팅', 'AI 채팅으로 캐릭터와 횟수 제한 없이 자유롭게 소통해요. 엔딩 뒤에도 채아와 둘만의 이야기를 소설처럼 이어 써요.'], ['멀티 엔딩', '작은 선택이 쌓여 대회와 연애의 결말이 갈려요.']],
-    sec: [
-      ['채아와 주고받는 AI 메시지', ['주간 화면 아래 메시지 창에 아무 말이나 보내면 채아가 답장해요.', '몇 주차인지, 기록과 컨디션, 당신과의 거리를 알고 그때의 채아로 대답해요.', '친해질수록 말투가 달라져요. 처음엔 퉁명스럽지만, 나중엔 걱정과 다정함이 새어 나와요.', '한 주에 10번까지 보낼 수 있어요. 인터넷 없이도 쓸 수 있어요.'], '02-week-chat.png'],
-      ['매주 직접 짜는 일정', ['훈련, 헬스장, 카페, 선물, 설기 돌보기, 휴식, 아르바이트, 주식까지 할 수 있어요.', '무리하면 다치고, 쉬기만 하면 기록이 멈춰요.'], '04-track-cg.png'],
-      ['둘이 함께 쓰는 소설, AI채팅', ['말은 그대로, 행동은 *별표* 안에 적어요. AI가 채아의 대사와 나레이션을 함께 써요.', '공원 산책, 편의점 야식, 한강까지, 어디로 갈지는 당신이 정해요.', '이야기 내용에 맞춰 배경 그림과 채아의 표정, 배경음악이 함께 바뀌어요.', '답 길이와 글씨 크기는 설정에서 고를 수 있어요.', '내 PC에 Codex나 Claude Code가 있다면 연결해서 더 길고 깊은 문장으로 즐길 수도 있어요. (각 서비스 계정이 필요해요)'], '03-free-play.png'],
-      ['알아 두세요', ['AI는 게임에서 고른 언어(한국어·영어·일본어·중국어)로 답해요.', '컴퓨터 사양에 따라 답이 오는 속도가 다르고, 가끔 어색한 대답이 나올 수 있어요.', 'AI가 부적절한 내용을 쓰지 못하도록 안전장치를 적용했어요.']],
-      ['정식판에서 만나요', ['7주차부터 24주차까지 이어지는 본편 이야기와, 9월 전국체전 예선의 결말까지 볼 수 있어요.', '옆집 이웃 승연의 이야기가 본격적으로 펼쳐져요. 승연에게도 호감도 등 다양한 스탯이 생겨요.', '승연과도 AI 메시지로 직접 대화할 수 있어요.', '새로운 CG가 여러 장 추가돼요.', '다양한 표정의 스탠딩 일러스트가 추가돼요.', '엔딩이 더 다양해져요.', 'AI채팅에서 채아의 표정과 모습이 더 다양해져요.', '그 밖에도 다양한 기능과 이미지가 계속 업데이트돼요.'], '05-beach-cg.png'],
-      ['데모 안내', ['프롤로그부터 6주차까지 중 일부를 플레이할 수 있어요.', '한국어, English, 日本語, 简体中文, 繁體中文을 지원해요.', '체험판은 아직 만드는 중인 버전이라 최종 완성도와 차이가 있을 수 있어요. 전체 이야기 중 8~10% 정도를 담았어요.', '연출, CG, 일러스트 같은 세부 요소는 개발하면서 바뀔 수 있어요.']],
+ "ko": {
+  "name": "한국어",
+  "title": "런! (Run!)",
+  "lead": "다친 발목, 내가 건넨 운동화, 그리고 함께 달리기로 한 약속. 100m 선수 채아의 24주를 함께하는 육성 연애 비주얼 노벨.",
+  "info": [
+   [
+    "개발·배급",
+    "택훈 게임즈 (Teckhoon Games)"
+   ],
+   [
+    "정식 출시",
+    "출시 예정"
+   ],
+   [
+    "체험판",
+    "프롤로그 ~ 6주차 중 일부"
+   ],
+   [
+    "플랫폼",
+    "Windows 10 / 11 (64비트)"
+   ]
+  ],
+  "tags": [
+   "비주얼 노벨",
+   "육성 시뮬레이션",
+   "연애",
+   "AI 대화",
+   "멀티 엔딩",
+   "스포츠"
+  ],
+  "cta": "스토브에서 보기",
+  "ctaSub": "체험판 공개 예정",
+  "quote": "\"내가 준 운동화를 신고 뛰다가, 그 애가 넘어졌다.\"",
+  "intro": [
+   "육상부 100m 선수 채아와 함께하는 24주예요.",
+   "미안함으로 시작된 한 달, 매일 아침 7시의 러닝 메이트 계약, 그리고 9월 전국체전 예선이 기다려요.",
+   "기록과 마음, 둘 다 붙잡을 수 있을까요?"
+  ],
+  "featH": "주요 특징",
+  "feat": [
+   [
+    "육성 시뮬레이션",
+    "한 주에 두 가지 활동을 골라 채아의 기록과 컨디션을 관리해요."
+   ],
+   [
+    "AI 메시지",
+    "정해진 선택지 없이, 하고 싶은 말을 보내면 채아가 직접 답장해요."
+   ],
+   [
+    "AI채팅",
+    "AI 채팅으로 캐릭터와 횟수 제한 없이 자유롭게 소통해요. 엔딩 뒤에도 채아와 둘만의 이야기를 소설처럼 이어 써요."
+   ],
+   [
+    "멀티 엔딩",
+    "작은 선택이 쌓여 대회와 연애의 결말이 갈려요."
+   ]
+  ],
+  "sec": [
+   [
+    "채아와 주고받는 AI 메시지",
+    [
+     "주간 화면 아래 메시지 창에 아무 말이나 보내면 채아가 답장해요.",
+     "몇 주차인지, 기록과 컨디션, 당신과의 거리를 알고 그때의 채아로 대답해요.",
+     "친해질수록 말투가 달라져요. 처음엔 퉁명스럽지만, 나중엔 걱정과 다정함이 새어 나와요.",
+     "한 주에 10번까지 보낼 수 있어요. 게임에 들어 있는 AI가 내 PC에서 돌아가서 인터넷 없이도 쓸 수 있어요.",
+     "대답은 내 PC가 직접 만들어서, 컴퓨터 성능에 따라 답이 오는 속도와 대답의 자연스러움이 달라질 수 있어요."
     ],
-    caps: { '01-store-choice.png': '선택지가 나오는 비주얼 노벨 장면', '02-week-chat.png': '주간 일정 짜기와 AI 메시지', '03-free-play.png': 'AI채팅', '04-track-cg.png': '경기장 질주', '05-beach-cg.png': '바닷가 노을', '06-prologue-nvl.png': '1주차 골목 장면', key: '대표 이미지' },
-    charH: '등장인물', chaea: '채아', side: '승연', chaeaD: '20세, 대학 1학년 육상학과 100m 선수. 목표는 9월 전국체전 예선.', sideD: '채아의 옆집 이웃.',
-    exprC: '스탠딩 표정 7종 (기본·무표정·부끄럼·삐짐·째려봄·놀람·난처)', exprS: '스탠딩 표정 1종', cvNote: '성우는 정식 출시 때 바뀔 수 있어요.',
-    langH: '지원 언어', lcols: ['언어', '인터페이스', '음성', '자막'],
-    specH: '최소 / 권장 사양', spec: [['운영체제', 'Windows 10 / 11 (64비트)'], ['프로세서', '4코어 이상 (권장 6코어)'], ['메모리', '8GB (권장 16GB)'], ['그래픽', '내장 그래픽 가능 / AI 대화를 빠르게 쓰려면 VRAM 6GB 이상 NVIDIA·AMD'], ['저장 공간', '7GB']],
-    sg: { h: '건의·버그 신고', p: '게임에 바라는 점이나 발견한 버그를 적어 주세요. 보낸 글은 제작자만 볼 수 있어요.', ph: '예: 이런 활동이 있으면 좋겠어요', send: '보내기', empty: '내용을 적어 주세요.', wait: '조금 뒤에 다시 보내 주세요. (30초에 한 번)', sending: '보내는 중…', ok: '보냈어요. 고마워요!', fail: '보내지 못했어요. 잠시 뒤 다시 눌러 주세요.', no: '이 링크에서는 보낼 수 없어요.', login: '로그인한 상태에서 보낼 수 있어요.', ro: '이 링크는 보기 전용이라 건의사항을 보낼 수 없어요.', inbox: '받은 건의사항', none: '아직 받은 건의사항이 없어요.', anon: '이름 없음', cnt: '개' },
-  },
-  en: { name: 'English', title: 'Run! (런!)',
-    lead: 'A sprained ankle, the running shoes you gave her, and a promise to run together. A raising-sim romance visual novel about 24 weeks with Chaea, a 100 m sprinter.',
-    info: [['Developer / Publisher', 'Teckhoon Games'], ['Full release', 'Coming soon'], ['Demo', 'Part of the prologue through Week 6'], ['Platform', 'Windows 10 / 11 (64-bit)']],
-    tags: ['Visual novel', 'Raising sim', 'Romance', 'AI chat', 'Multiple endings', 'Sports'], cta: 'View on STOVE', ctaSub: 'Demo coming soon',
-    quote: '"She was running in the shoes I gave her — and she fell."',
-    intro: ['Spend 24 weeks with Chaea, a 100 m sprinter on the track team.', 'A month that starts with an apology, a running-mate contract every morning at 7, and the national qualifiers in September.', 'Can you hold on to both her record and her heart?'],
-    featH: 'Key features', feat: [['Raising sim', "Pick two activities each week to manage Chaea's time and condition."], ['AI messages', 'No preset choices. Send whatever you want, and Chaea writes back herself.'], ['AI Chat', 'Talk freely with the characters through AI chat, with no limit. Keep writing your own story with Chaea after the ending, like a novel.'], ['Multiple endings', 'Small choices add up to different outcomes in sports and romance.']],
-    sec: [
-      ['AI messages with Chaea', ['Send anything from the message box under the weekly screen, and Chaea replies.', 'She knows the week, her time and condition, and how close she feels to you — and answers as who she is right now.', 'Her tone changes as you grow closer: curt at first, then worry and warmth start slipping through.', 'Up to 10 messages a week. No internet needed.'], '02-week-chat.png'],
-      ['Plan every week', ['Train, hit the gym, visit a café, give gifts, look after Seolgi the cat, rest, work part-time, even trade stocks.', 'Push too hard and she gets hurt; rest too much and her time stops improving.'], '04-track-cg.png'],
-      ['A story you write together — AI Chat', ['Type speech as is and put actions between *asterisks*. The AI writes Chaea\'s lines and the narration together.', 'A walk in the park, late-night convenience store snacks, the Han River — you decide where to go.', 'The background art, Chaea’s expressions and the music change to match the story as it unfolds.', 'Choose reply length and text size in the settings.', 'If Codex or Claude Code is installed on your PC, connect it for longer, richer writing. (Requires an account for each service.)'], '03-free-play.png'],
-      ['Good to know', ['The AI replies in the language you select in the game (Korean, English, Japanese, Chinese).', 'Reply speed depends on your computer, and some replies may occasionally feel a little off.', 'Safeguards are in place to keep the AI from writing inappropriate content.']],
-      ['Coming in the full version', ['The main story continues from Week 7 to Week 24, all the way to the September qualifiers.', 'Seungyeon, the girl next door, gets her own story — with various stats such as affection.', 'Chat with Seungyeon through AI messages, too.', 'Many new CGs.', 'New character portraits with a wider range of expressions.', 'More endings to discover.', 'In AI Chat, Chaea gets more expressions and looks.', 'More features and images will keep coming in updates.'], '05-beach-cg.png'],
-      ['About this demo', ['Play part of the story from the prologue through Week 6.', 'Supports 한국어, English, 日本語, 简体中文, 繁體中文.', 'This demo is a work in progress and may differ from the final quality. It covers roughly 8–10% of the full game.', 'Details such as staging, CGs and illustrations may change during development.']],
+    "02-week-chat.png"
+   ],
+   [
+    "매주 직접 짜는 일정",
+    [
+     "훈련, 헬스장, 카페, 선물, 설기 돌보기, 휴식, 아르바이트, 주식까지 할 수 있어요.",
+     "무리하면 다치고, 쉬기만 하면 기록이 멈춰요."
     ],
-    caps: { '01-store-choice.png': 'A visual novel scene with choices', '02-week-chat.png': 'Weekly planning and AI messages', '03-free-play.png': 'AI Chat', '04-track-cg.png': 'Sprint at the stadium', '05-beach-cg.png': 'Sunset at the beach', '06-prologue-nvl.png': 'The alley in Week 1', key: 'Key art' },
-    charH: 'Characters', chaea: 'Chaea', side: 'Seungyeon', chaeaD: '20, first-year university student and 100 m sprinter. Her goal: the national qualifiers in September.', sideD: "Chaea's next-door neighbor.",
-    exprC: '7 portrait expressions (default, blank, shy, pouting, glaring, surprised, awkward)', exprS: '1 portrait expression', cvNote: 'Voice actors may change for the full release.',
-    langH: 'Languages', lcols: ['Language', 'Interface', 'Voice', 'Subtitles'],
-    specH: 'System requirements', spec: [['OS', 'Windows 10 / 11 (64-bit)'], ['Processor', '4 cores (6 recommended)'], ['Memory', '8 GB RAM (16 GB recommended)'], ['Graphics', 'Integrated graphics OK / for faster AI chat, NVIDIA or AMD with 6 GB+ VRAM'], ['Storage', '7 GB']],
-    sg: { h: 'Suggestions & Bug Reports', p: 'Tell us what you would like to see in the game, or any bugs you found. Only the developer can read what you send.', ph: 'e.g. I would love an activity like…', send: 'Send', empty: 'Please write something first.', wait: 'Please wait a moment before sending again (once every 30 seconds).', sending: 'Sending…', ok: 'Sent. Thank you!', fail: 'Could not send. Please try again shortly.', no: 'Sending is not available from this link.', login: 'Sign in to send a suggestion.', ro: 'This link is view-only, so suggestions cannot be sent.', inbox: 'Received suggestions', none: 'No suggestions yet.', anon: 'Unknown', cnt: '' },
-  },
-  ja: { name: '日本語', title: '런!（Run!）',
-    lead: 'くじいた足首、僕が渡したランニングシューズ、そして一緒に走るという約束。100m選手チェアと過ごす24週間を描く、育成恋愛ビジュアルノベル。',
-    info: [['開発・販売', 'Teckhoon Games'], ['製品版', '発売予定'], ['体験版', 'プロローグ〜6週目の一部'], ['プラットフォーム', 'Windows 10 / 11（64ビット）']],
-    tags: ['ビジュアルノベル', '育成シミュレーション', '恋愛', 'AI会話', 'マルチエンディング', 'スポーツ'], cta: 'STOVEで見る', ctaSub: '体験版公開予定',
-    quote: '「僕があげたシューズで走って、あの子は転んだ。」',
-    intro: ['陸上部の100m選手・チェアと過ごす24週間です。', '謝罪から始まった一か月、毎朝7時のランニングメイト契約、そして9月の全国大会予選が待っています。', '記録と気持ち、どちらもつかめるでしょうか。'],
-    featH: '主な特徴', feat: [['育成シミュレーション', '毎週2つの活動を選んで、チェアのタイムとコンディションを管理します。'], ['AIメッセージ', '決まった選択肢はありません。言いたいことを送れば、チェアが自分で返事をくれます。'], ['AIチャット', 'AIチャットでキャラクターと回数無制限で自由に会話できます。エンディングの後も、チェアと二人だけの物語を小説のように書き続けられます。'], ['マルチエンディング', '小さな選択の積み重ねで、大会と恋愛の結末が分かれます。']],
-    sec: [
-      ['チェアとやり取りするAIメッセージ', ['週の画面の下にあるメッセージ欄に何でも送れば、チェアが返事をくれます。', '何週目か、タイムとコンディション、あなたとの距離を分かったうえで、その時のチェアとして答えます。', '仲良くなるほど口調が変わります。最初はそっけなく、やがて心配や優しさがこぼれてきます。', '1週間に10回まで送れます。インターネットなしでも使えます。'], '02-week-chat.png'],
-      ['毎週の予定を組む', ['練習、ジム、カフェ、プレゼント、ソルギ（猫）の世話、休息、アルバイト、株までできます。', '無理をすればケガをし、休んでばかりではタイムが伸びません。'], '04-track-cg.png'],
-      ['二人で書く小説 ― AIチャット', ['セリフはそのまま、行動は*アスタリスク*で囲んで書きます。AIがチェアのセリフとナレーションを一緒に書きます。', '公園の散歩、コンビニの夜食、漢江まで。どこへ行くかはあなたが決めます。', '物語の内容に合わせて、背景の絵とチェアの表情、BGMが一緒に変わります。', '返事の長さと文字の大きさは設定で選べます。', 'PCにCodexやClaude Codeがあれば、接続してより長く深みのある文章で楽しむこともできます。（各サービスのアカウントが必要です）'], '03-free-play.png'],
-      ['ご注意', ['AIはゲームで選んだ言語（韓国語・英語・日本語・中国語）で返事をします。', 'PCのスペックによって返事の速さが異なり、ときどき不自然な返事になることがあります。', 'AIが不適切な内容を書かないよう、安全対策を施しています。']],
-      ['製品版で追加予定', ['7週目から24週目まで続く本編と、9月の全国大会予選の結末まで描かれます。', 'お隣さん・スンヨンの物語が本格的に始まります。スンヨンにも好感度などさまざまなステータスが加わります。', 'スンヨンともAIメッセージで直接会話できます。', '新しいCGが多数追加されます。', 'さまざまな表情の立ち絵が追加されます。', 'エンディングがさらに多彩になります。', 'AIチャットでのチェアの表情や姿がもっと豊かになります。', 'そのほかにも、さまざまな機能や画像が順次アップデートされます。'], '05-beach-cg.png'],
-      ['体験版について', ['プロローグから6週目までの一部をプレイできます。', '한국어、English、日本語、简体中文、繁體中文に対応しています。', '体験版は開発途中のバージョンのため、最終的な完成度とは異なる場合があります。収録範囲は全体の約8〜10%です。', '演出・CG・イラストなどの細かな部分は、開発の過程で変わることがあります。']],
+    "04-track-cg.png"
+   ],
+   [
+    "AI채팅: 소설과 메시지",
+    [
+     "말은 그대로, 행동은 *별표* 안에 적어요. AI가 채아의 대사와 나레이션을 함께 써요.",
+     "공원 산책, 편의점 야식, 한강까지, 어디로 갈지는 당신이 정해요.",
+     "이야기 내용에 맞춰 배경 그림과 채아의 표정, 배경음악이 함께 바뀌어요.",
+     "답 길이와 글씨 크기는 설정에서 고를 수 있어요.",
+     "내 PC에 Codex나 Claude Code가 있다면 연결해서 더 길고 깊은 문장으로 즐길 수도 있어요. (각 서비스 계정이 필요해요)",
+     "AI채팅을 시작할 때 소설과 메시지 중에서 고를 수 있어요.",
+     "메시지를 고르면 답이 줄마다 말풍선으로 하나씩 오고, 읽음 표시와 보낸 시각도 보여요.",
+     "답을 기다리는 동안에도 메시지를 연달아 보낼 수 있어요.",
+     "Codex나 Claude Code를 연결하면 채아가 대화에 맞는 유튜브 영상과 쇼츠를 찾아서 보내 주고, 게임 안에서 바로 볼 수 있어요.",
+     "Codex나 Claude Code를 연결하면 실제 시각과 연동돼서, 채아가 지금 시간을 알고 대화해요."
     ],
-    caps: { '01-store-choice.png': '選択肢が出るビジュアルノベルの場面', '02-week-chat.png': '週の予定とAIメッセージ', '03-free-play.png': 'AIチャット', '04-track-cg.png': '競技場の疾走', '05-beach-cg.png': '海辺の夕焼け', '06-prologue-nvl.png': '1週目の路地', key: 'キービジュアル' },
-    charH: '登場人物', chaea: 'チェア', side: 'スンヨン', chaeaD: '20歳、大学1年生の陸上100m選手。目標は9月の全国大会予選。', sideD: 'チェアのお隣さん。',
-    exprC: '立ち絵の表情7種（基本・無表情・照れ・すね・にらみ・驚き・困り）', exprS: '立ち絵の表情1種', cvNote: '声優は製品版で変更になる場合があります。',
-    langH: '対応言語', lcols: ['言語', 'インターフェース', '音声', '字幕'],
-    specH: '動作環境', spec: [['OS', 'Windows 10 / 11（64ビット）'], ['プロセッサー', '4コア以上（推奨6コア）'], ['メモリ', '8GB（推奨16GB）'], ['グラフィック', '内蔵GPU可 / AIチャットを快適に使うにはVRAM 6GB以上のNVIDIA・AMD'], ['ストレージ', '7GB']],
-    sg: { h: 'ご意見・バグ報告', p: 'ゲームへのご要望や見つけたバグをお書きください。送った内容は開発者だけが読めます。', ph: '例：こんな活動があったらうれしいです', send: '送信', empty: '内容を入力してください。', wait: '少し待ってから送ってください（30秒に1回）。', sending: '送信中…', ok: '送信しました。ありがとうございます！', fail: '送信できませんでした。しばらくしてからもう一度お試しください。', no: 'このリンクからは送信できません。', login: 'ログインすると送信できます。', ro: 'このリンクは閲覧専用のため送信できません。', inbox: '届いたご意見', none: 'まだご意見はありません。', anon: '名前なし', cnt: '件' },
+    "03-free-play.png"
+   ],
+   [
+    "다양한 채아의 표정",
+    [
+     "이야기와 대화 분위기에 맞춰 채아의 표정이 달라져요.",
+     "기쁠 때, 부끄러울 때, 삐졌을 때까지 순간마다 다른 얼굴을 볼 수 있어요."
+    ]
+   ],
+   [
+    "알아 두세요",
+    [
+     "AI는 게임에서 고른 언어(한국어·영어·일본어·중국어)로 답해요.",
+     "그래픽 카드가 약한 PC에서는 한 답에 10~40초가 걸리기도 하고, 가끔 어색한 대답이 나올 수 있어요."
+    ]
+   ],
+   [
+    "데모 안내",
+    [
+     "프롤로그부터 6주차까지 중 일부를 플레이할 수 있어요.",
+     "한국어, English, 日本語, 简体中文, 繁體中文을 지원해요.",
+     "체험판은 아직 만드는 중인 버전이라 최종 완성도와 차이가 있을 수 있어요. 전체 이야기 중 8~10% 정도를 담았어요.",
+     "연출, CG, 일러스트 같은 세부 요소는 개발하면서 바뀔 수 있어요."
+    ]
+   ]
+  ],
+  "caps": {
+   "01-store-choice.png": "선택지가 나오는 비주얼 노벨 장면",
+   "02-week-chat.png": "주간 일정 짜기와 AI 메시지",
+   "03-free-play.png": "AI채팅",
+   "04-track-cg.png": "경기장 질주",
+   "05-beach-cg.png": "바닷가 노을",
+   "06-prologue-nvl.png": "1주차 골목 장면",
+   "key": "대표 이미지"
   },
-  'zh-Hans': { name: '简体中文', title: '런!（Run!）',
-    lead: '扭伤的脚踝、我送出的跑鞋，还有一起奔跑的约定。陪伴百米短跑选手彩雅度过24周的养成恋爱视觉小说。',
-    info: [['开发商 / 发行商', 'Teckhoon Games'], ['正式版', '即将推出'], ['试玩版', '序章至第6周的部分内容'], ['平台', 'Windows 10 / 11（64位）']],
-    tags: ['视觉小说', '养成模拟', '恋爱', 'AI对话', '多结局', '运动'], cta: '在 STOVE 查看', ctaSub: '试玩版即将公开',
-    quote: '“她穿着我送的鞋跑步，然后摔倒了。”',
-    intro: ['与田径队百米选手彩雅共度24周。', '从一句道歉开始的一个月，每天早上7点的跑步搭档约定，还有九月的全国运动会预选赛在等着你们。', '成绩和心意，你能两者兼得吗？'],
-    featH: '主要特色', feat: [['养成模拟', '每周选择两项活动，管理彩雅的成绩和状态。'], ['AI消息', '没有固定选项，把想说的话发出去，彩雅会亲自回复你。'], ['AI聊天', '通过AI聊天与角色无限制地自由交流。结局之后，也能像写小说一样继续和彩雅的故事。'], ['多结局', '一个个小选择，决定比赛与恋爱的结局。']],
-    sec: [
-      ['和彩雅互发AI消息', ['在每周画面下方的消息框里发送任何话，彩雅都会回复。', '她知道现在是第几周、自己的成绩和状态，以及和你的距离，并以当下的彩雅来回答。', '关系越近，语气越不一样：一开始冷淡，后来关心和温柔会慢慢流露出来。', '每周最多10次。无需联网也能使用。'], '02-week-chat.png'],
-      ['亲手安排每一周', ['训练、健身房、咖啡厅、送礼物、照顾猫咪雪饼、休息、打工，甚至炒股。', '勉强过头会受伤，一味休息成绩就会停滞。'], '04-track-cg.png'],
-      ['两个人一起写的小说 — AI聊天', ['台词直接写，动作用*星号*括起来。AI会同时写出彩雅的台词和旁白。', '公园散步、便利店夜宵、汉江边……去哪里由你决定。', '背景画面、彩雅的表情和背景音乐会随着故事内容一起变化。', '可以在设置中选择回复长度和文字大小。', '如果电脑中装有Codex或Claude Code，也可以连接它们，享受更长、更有深度的文字。（需要各服务的账号）'], '03-free-play.png'],
-      ['注意事项', ['AI会用你在游戏中选择的语言（韩语、英语、日语、中文）回复。', '回复速度因电脑配置而异，偶尔也可能出现不太自然的回复。', '已设置安全措施，防止AI写出不当内容。']],
-      ['正式版将加入', ['从第7周到第24周的完整故事，直到九月全国运动会预选赛的结局。', '邻居昇妍的故事将正式展开，昇妍也会有好感度等多种数值。', '也能通过AI消息和昇妍直接聊天。', '新增多张CG。', '新增多种表情的立绘。', '结局将更加多样。', 'AI聊天中彩雅的表情和造型会更加丰富。', '此外，还会陆续更新更多功能和图片。'], '05-beach-cg.png'],
-      ['试玩版说明', ['可游玩序章至第6周的部分内容。', '支持 한국어、English、日本語、简体中文、繁體中文。', '试玩版仍在开发中，可能与最终品质有所不同。内容约占完整游戏的8~10%。', '演出、CG、插画等细节可能会在开发过程中调整。']],
+  "charH": "등장인물",
+  "chaea": "채아",
+  "side": "승연",
+  "chaeaD": "20세, 대학 1학년 육상학과 100m 선수. 목표는 9월 전국체전 예선.",
+  "sideD": "채아의 옆집 이웃.",
+  "exprC": "스탠딩 표정 7종 (기본·무표정·부끄럼·삐짐·째려봄·놀람·난처)",
+  "exprS": "스탠딩 표정 1종",
+  "cvNote": "성우는 정식 출시 때 바뀔 수 있어요.",
+  "langH": "지원 언어",
+  "lcols": [
+   "언어",
+   "인터페이스",
+   "음성",
+   "자막"
+  ],
+  "specH": "최소 / 권장 사양",
+  "spec": [
+   [
+    "운영체제",
+    "Windows 10 / 11 (64비트)"
+   ],
+   [
+    "프로세서",
+    "4코어 이상 (권장 6코어)"
+   ],
+   [
+    "메모리",
+    "8GB (권장 16GB)"
+   ],
+   [
+    "그래픽",
+    "내장 그래픽 가능 / AI 대화를 빠르게 쓰려면 VRAM 6GB 이상 NVIDIA·AMD"
+   ],
+   [
+    "저장 공간",
+    "7GB"
+   ]
+  ],
+  "sg": {
+   "h": "건의·버그 신고",
+   "p": "게임에 바라는 점이나 발견한 버그를 적어 주세요. 보낸 글은 제작자만 볼 수 있어요.",
+   "ph": "예: 이런 활동이 있으면 좋겠어요",
+   "send": "보내기",
+   "empty": "내용을 적어 주세요.",
+   "wait": "조금 뒤에 다시 보내 주세요. (30초에 한 번)",
+   "sending": "보내는 중…",
+   "ok": "보냈어요. 고마워요!",
+   "fail": "보내지 못했어요. 잠시 뒤 다시 눌러 주세요.",
+   "no": "이 링크에서는 보낼 수 없어요.",
+   "login": "로그인한 상태에서 보낼 수 있어요.",
+   "ro": "이 링크는 보기 전용이라 건의사항을 보낼 수 없어요.",
+   "inbox": "받은 건의사항",
+   "none": "아직 받은 건의사항이 없어요.",
+   "anon": "이름 없음",
+   "cnt": "개"
+  },
+  "goal": [
+   "정식 출시 목표",
+   [
+    "24시간 실시간 완성도 높은 AI 여자친구 기능",
+    "24주간 이어지는 본편 이야기와, 9월 전국체전 예선의 결말까지 볼 수 있어요.",
+    "옆집 이웃 승연의 이야기가 본격적으로 펼쳐져요. 승연에게도 호감도 등 다양한 스탯이 생겨요.",
+    "승연과도 AI 메시지로 직접 대화할 수 있어요.",
+    "새로운 CG가 여러 장 추가돼요.",
+    "다양한 표정의 스탠딩 일러스트가 추가돼요.",
+    "엔딩이 더 다양해져요.",
+    "AI채팅에서 채아의 표정과 모습이 더 다양해져요.",
+    "그 밖에도 다양한 기능과 이미지가 계속 업데이트돼요."
+   ]
+  ]
+ },
+ "en": {
+  "name": "English",
+  "title": "Run! (런!)",
+  "lead": "A sprained ankle, the running shoes you gave her, and a promise to run together. A raising-sim romance visual novel about 24 weeks with Chaea, a 100 m sprinter.",
+  "info": [
+   [
+    "Developer / Publisher",
+    "Teckhoon Games"
+   ],
+   [
+    "Full release",
+    "Coming soon"
+   ],
+   [
+    "Demo",
+    "Part of the prologue through Week 6"
+   ],
+   [
+    "Platform",
+    "Windows 10 / 11 (64-bit)"
+   ]
+  ],
+  "tags": [
+   "Visual novel",
+   "Raising sim",
+   "Romance",
+   "AI chat",
+   "Multiple endings",
+   "Sports"
+  ],
+  "cta": "View on STOVE",
+  "ctaSub": "Demo coming soon",
+  "quote": "\"She was running in the shoes I gave her — and she fell.\"",
+  "intro": [
+   "Spend 24 weeks with Chaea, a 100 m sprinter on the track team.",
+   "A month that starts with an apology, a running-mate contract every morning at 7, and the national qualifiers in September.",
+   "Can you hold on to both her record and her heart?"
+  ],
+  "featH": "Key features",
+  "feat": [
+   [
+    "Raising sim",
+    "Pick two activities each week to manage Chaea's time and condition."
+   ],
+   [
+    "AI messages",
+    "No preset choices. Send whatever you want, and Chaea writes back herself."
+   ],
+   [
+    "AI Chat",
+    "Talk freely with the characters through AI chat, with no limit. Keep writing your own story with Chaea after the ending, like a novel."
+   ],
+   [
+    "Multiple endings",
+    "Small choices add up to different outcomes in sports and romance."
+   ]
+  ],
+  "sec": [
+   [
+    "AI messages with Chaea",
+    [
+     "Send anything from the message box under the weekly screen, and Chaea replies.",
+     "She knows the week, her time and condition, and how close she feels to you — and answers as who she is right now.",
+     "Her tone changes as you grow closer: curt at first, then worry and warmth start slipping through.",
+     "Up to 10 messages a week. The built-in AI runs on your own PC, so no internet is needed.",
+     "Because replies are generated on your own PC, how fast they arrive and how natural they read can vary with your computer's performance."
     ],
-    caps: { '01-store-choice.png': '出现选项的视觉小说场景', '02-week-chat.png': '每周安排与AI消息', '03-free-play.png': 'AI聊天', '04-track-cg.png': '赛场冲刺', '05-beach-cg.png': '海边夕阳', '06-prologue-nvl.png': '第1周的小巷', key: '主视觉' },
-    charH: '登场人物', chaea: '彩雅', side: '昇妍', chaeaD: '20岁，大学一年级田径百米选手。目标是九月的全国运动会预选赛。', sideD: '彩雅的邻居。',
-    exprC: '立绘表情7种（默认·面无表情·害羞·赌气·瞪眼·惊讶·为难）', exprS: '立绘表情1种', cvNote: '声优可能会在正式版中更换。',
-    langH: '支持语言', lcols: ['语言', '界面', '语音', '字幕'],
-    specH: '配置需求', spec: [['操作系统', 'Windows 10 / 11（64位）'], ['处理器', '4核以上（推荐6核）'], ['内存', '8GB（推荐16GB）'], ['显卡', '集成显卡可运行 / 想让AI聊天更流畅，建议6GB以上显存的NVIDIA或AMD显卡'], ['存储空间', '7GB']],
-    sg: { h: '意见建议・错误反馈', p: '请写下你对游戏的期待或发现的错误。发送的内容只有开发者能看到。', ph: '例如：希望能加入这样的活动', send: '发送', empty: '请先填写内容。', wait: '请稍后再发送（每30秒一次）。', sending: '发送中…', ok: '已发送，谢谢！', fail: '发送失败，请稍后再试。', no: '无法通过此链接发送。', login: '登录后即可发送。', ro: '此链接为仅查看，无法发送建议。', inbox: '收到的建议', none: '还没有收到建议。', anon: '无名', cnt: '条' },
-  },
-  'zh-Hant': { name: '繁體中文', title: '런!（Run!）',
-    lead: '扭傷的腳踝、我送出的跑鞋，還有一起奔跑的約定。陪伴百米短跑選手彩雅度過24週的養成戀愛視覺小說。',
-    info: [['開發商 / 發行商', 'Teckhoon Games'], ['正式版', '即將推出'], ['試玩版', '序章至第6週的部分內容'], ['平台', 'Windows 10 / 11（64位元）']],
-    tags: ['視覺小說', '養成模擬', '戀愛', 'AI對話', '多結局', '運動'], cta: '在 STOVE 查看', ctaSub: '試玩版即將公開',
-    quote: '「她穿著我送的鞋跑步，然後跌倒了。」',
-    intro: ['與田徑隊百米選手彩雅共度24週。', '從一句道歉開始的一個月，每天早上7點的跑步搭檔約定，還有九月的全國運動會預選賽在等著你們。', '成績和心意，你能兩者兼得嗎？'],
-    featH: '主要特色', feat: [['養成模擬', '每週選擇兩項活動，管理彩雅的成績和狀態。'], ['AI訊息', '沒有固定選項，把想說的話傳出去，彩雅會親自回覆你。'], ['AI聊天', '透過AI聊天與角色無限制地自由交流。結局之後，也能像寫小說一樣繼續和彩雅的故事。'], ['多結局', '一個個小選擇，決定比賽與戀愛的結局。']],
-    sec: [
-      ['和彩雅互傳AI訊息', ['在每週畫面下方的訊息框裡傳送任何話，彩雅都會回覆。', '她知道現在是第幾週、自己的成績和狀態，以及和你的距離，並以當下的彩雅來回答。', '關係越近，語氣越不一樣：一開始冷淡，後來關心和溫柔會慢慢流露出來。', '每週最多10次。無需連網也能使用。'], '02-week-chat.png'],
-      ['親手安排每一週', ['訓練、健身房、咖啡廳、送禮物、照顧貓咪雪餅、休息、打工，甚至炒股。', '勉強過頭會受傷，一味休息成績就會停滯。'], '04-track-cg.png'],
-      ['兩個人一起寫的小說 — AI聊天', ['台詞直接寫，動作用*星號*括起來。AI會同時寫出彩雅的台詞和旁白。', '公園散步、便利商店宵夜、漢江邊……去哪裡由你決定。', '背景畫面、彩雅的表情和背景音樂會隨著故事內容一起變化。', '可以在設定中選擇回覆長度和文字大小。', '如果電腦中裝有Codex或Claude Code，也可以連接它們，享受更長、更有深度的文字。（需要各服務的帳號）'], '03-free-play.png'],
-      ['注意事項', ['AI會用你在遊戲中選擇的語言（韓語、英語、日語、中文）回覆。', '回覆速度因電腦配備而異，偶爾也可能出現不太自然的回覆。', '已設置安全措施，防止AI寫出不當內容。']],
-      ['正式版將加入', ['從第7週到第24週的完整故事，直到九月全國運動會預選賽的結局。', '鄰居昇妍的故事將正式展開，昇妍也會有好感度等多種數值。', '也能透過AI訊息和昇妍直接聊天。', '新增多張CG。', '新增多種表情的立繪。', '結局將更加多樣。', 'AI聊天中彩雅的表情和造型會更加豐富。', '此外，還會陸續更新更多功能和圖片。'], '05-beach-cg.png'],
-      ['試玩版說明', ['可遊玩序章至第6週的部分內容。', '支援 한국어、English、日本語、简体中文、繁體中文。', '試玩版仍在開發中，可能與最終品質有所不同。內容約佔完整遊戲的8~10%。', '演出、CG、插畫等細節可能會在開發過程中調整。']],
+    "02-week-chat.png"
+   ],
+   [
+    "Plan every week",
+    [
+     "Train, hit the gym, visit a café, give gifts, look after Seolgi the cat, rest, work part-time, even trade stocks.",
+     "Push too hard and she gets hurt; rest too much and her time stops improving."
     ],
-    caps: { '01-store-choice.png': '出現選項的視覺小說場景', '02-week-chat.png': '每週安排與AI訊息', '03-free-play.png': 'AI聊天', '04-track-cg.png': '賽場衝刺', '05-beach-cg.png': '海邊夕陽', '06-prologue-nvl.png': '第1週的小巷', key: '主視覺' },
-    charH: '登場人物', chaea: '彩雅', side: '昇妍', chaeaD: '20歲，大學一年級田徑百米選手。目標是九月的全國運動會預選賽。', sideD: '彩雅的鄰居。',
-    exprC: '立繪表情7種（預設·面無表情·害羞·賭氣·瞪眼·驚訝·為難）', exprS: '立繪表情1種', cvNote: '聲優可能會在正式版中更換。',
-    langH: '支援語言', lcols: ['語言', '介面', '語音', '字幕'],
-    specH: '配備需求', spec: [['作業系統', 'Windows 10 / 11（64位元）'], ['處理器', '4核以上（建議6核）'], ['記憶體', '8GB（建議16GB）'], ['顯示卡', '內建顯示卡可執行 / 想讓AI聊天更流暢，建議6GB以上顯示記憶體的NVIDIA或AMD顯示卡'], ['儲存空間', '7GB']],
-    sg: { h: '意見建議・錯誤回報', p: '請寫下你對遊戲的期待或發現的錯誤。傳送的內容只有開發者能看到。', ph: '例如：希望能加入這樣的活動', send: '傳送', empty: '請先填寫內容。', wait: '請稍後再傳送（每30秒一次）。', sending: '傳送中…', ok: '已傳送，謝謝！', fail: '傳送失敗，請稍後再試。', no: '無法透過此連結傳送。', login: '登入後即可傳送。', ro: '此連結為僅檢視，無法傳送建議。', inbox: '收到的建議', none: '還沒有收到建議。', anon: '無名', cnt: '則' },
+    "04-track-cg.png"
+   ],
+   [
+    "AI Chat: Novel and Messages",
+    [
+     "Type speech as is and put actions between *asterisks*. The AI writes Chaea's lines and the narration together.",
+     "A walk in the park, late-night convenience store snacks, the Han River — you decide where to go.",
+     "The background art, Chaea’s expressions and the music change to match the story as it unfolds.",
+     "Choose reply length and text size in the settings.",
+     "If Codex or Claude Code is installed on your PC, connect it for longer, richer writing. (Requires an account for each service.)",
+     "When you start AI Chat, choose between Novel and Messages.",
+     "In Messages, replies arrive one bubble at a time, with read marks and timestamps.",
+     "You can keep sending messages while you wait for a reply.",
+     "With Codex or Claude Code connected, Chaea finds YouTube videos and Shorts that fit the conversation and shares them, and you can watch them right in the game.",
+     "With Codex or Claude Code connected, the chat syncs with the real time, so Chaea knows what time it is."
+    ],
+    "03-free-play.png"
+   ],
+   [
+    "Chaea’s Many Expressions",
+    [
+     "Chaea’s expression changes with the story and the mood of the conversation.",
+     "Happy, flustered or sulking, you’ll see a different face in every moment."
+    ]
+   ],
+   [
+    "Good to know",
+    [
+     "The AI replies in the language you select in the game (Korean, English, Japanese, Chinese).",
+     "On PCs with weaker GPUs, a reply can take 10–40 seconds, and some replies may occasionally feel a little off."
+    ]
+   ],
+   [
+    "About this demo",
+    [
+     "Play part of the story from the prologue through Week 6.",
+     "Supports 한국어, English, 日本語, 简体中文, 繁體中文.",
+     "This demo is a work in progress and may differ from the final quality. It covers roughly 8–10% of the full game.",
+     "Details such as staging, CGs and illustrations may change during development."
+    ]
+   ]
+  ],
+  "caps": {
+   "01-store-choice.png": "A visual novel scene with choices",
+   "02-week-chat.png": "Weekly planning and AI messages",
+   "03-free-play.png": "AI Chat",
+   "04-track-cg.png": "Sprint at the stadium",
+   "05-beach-cg.png": "Sunset at the beach",
+   "06-prologue-nvl.png": "The alley in Week 1",
+   "key": "Key art"
   },
+  "charH": "Characters",
+  "chaea": "Chaea",
+  "side": "Seungyeon",
+  "chaeaD": "20, first-year university student and 100 m sprinter. Her goal: the national qualifiers in September.",
+  "sideD": "Chaea's next-door neighbor.",
+  "exprC": "7 portrait expressions (default, blank, shy, pouting, glaring, surprised, awkward)",
+  "exprS": "1 portrait expression",
+  "cvNote": "Voice actors may change for the full release.",
+  "langH": "Languages",
+  "lcols": [
+   "Language",
+   "Interface",
+   "Voice",
+   "Subtitles"
+  ],
+  "specH": "System requirements",
+  "spec": [
+   [
+    "OS",
+    "Windows 10 / 11 (64-bit)"
+   ],
+   [
+    "Processor",
+    "4 cores (6 recommended)"
+   ],
+   [
+    "Memory",
+    "8 GB RAM (16 GB recommended)"
+   ],
+   [
+    "Graphics",
+    "Integrated graphics OK / for faster AI chat, NVIDIA or AMD with 6 GB+ VRAM"
+   ],
+   [
+    "Storage",
+    "7 GB"
+   ]
+  ],
+  "sg": {
+   "h": "Suggestions & Bug Reports",
+   "p": "Tell us what you would like to see in the game, or any bugs you found. Only the developer can read what you send.",
+   "ph": "e.g. I would love an activity like…",
+   "send": "Send",
+   "empty": "Please write something first.",
+   "wait": "Please wait a moment before sending again (once every 30 seconds).",
+   "sending": "Sending…",
+   "ok": "Sent. Thank you!",
+   "fail": "Could not send. Please try again shortly.",
+   "no": "Sending is not available from this link.",
+   "login": "Sign in to send a suggestion.",
+   "ro": "This link is view-only, so suggestions cannot be sent.",
+   "inbox": "Received suggestions",
+   "none": "No suggestions yet.",
+   "anon": "Unknown",
+   "cnt": ""
+  },
+  "goal": [
+   "Full Release Goals",
+   [
+    "A polished, real-time AI girlfriend, available 24/7",
+    "The main story continues for 24 weeks, all the way to the September qualifiers.",
+    "Seungyeon, the girl next door, gets her own story — with various stats such as affection.",
+    "Chat with Seungyeon through AI messages, too.",
+    "Many new CGs.",
+    "New character portraits with a wider range of expressions.",
+    "More endings to discover.",
+    "In AI Chat, Chaea gets more expressions and looks.",
+    "More features and images will keep coming in updates."
+   ]
+  ]
+ },
+ "ja": {
+  "name": "日本語",
+  "title": "런!（Run!）",
+  "lead": "くじいた足首、僕が渡したランニングシューズ、そして一緒に走るという約束。100m選手チェアと過ごす24週間を描く、育成恋愛ビジュアルノベル。",
+  "info": [
+   [
+    "開発・販売",
+    "Teckhoon Games"
+   ],
+   [
+    "製品版",
+    "発売予定"
+   ],
+   [
+    "体験版",
+    "プロローグ〜6週目の一部"
+   ],
+   [
+    "プラットフォーム",
+    "Windows 10 / 11（64ビット）"
+   ]
+  ],
+  "tags": [
+   "ビジュアルノベル",
+   "育成シミュレーション",
+   "恋愛",
+   "AI会話",
+   "マルチエンディング",
+   "スポーツ"
+  ],
+  "cta": "STOVEで見る",
+  "ctaSub": "体験版公開予定",
+  "quote": "「僕があげたシューズで走って、あの子は転んだ。」",
+  "intro": [
+   "陸上部の100m選手・チェアと過ごす24週間です。",
+   "謝罪から始まった一か月、毎朝7時のランニングメイト契約、そして9月の全国大会予選が待っています。",
+   "記録と気持ち、どちらもつかめるでしょうか。"
+  ],
+  "featH": "主な特徴",
+  "feat": [
+   [
+    "育成シミュレーション",
+    "毎週2つの活動を選んで、チェアのタイムとコンディションを管理します。"
+   ],
+   [
+    "AIメッセージ",
+    "決まった選択肢はありません。言いたいことを送れば、チェアが自分で返事をくれます。"
+   ],
+   [
+    "AIチャット",
+    "AIチャットでキャラクターと回数無制限で自由に会話できます。エンディングの後も、チェアと二人だけの物語を小説のように書き続けられます。"
+   ],
+   [
+    "マルチエンディング",
+    "小さな選択の積み重ねで、大会と恋愛の結末が分かれます。"
+   ]
+  ],
+  "sec": [
+   [
+    "チェアとやり取りするAIメッセージ",
+    [
+     "週の画面の下にあるメッセージ欄に何でも送れば、チェアが返事をくれます。",
+     "何週目か、タイムとコンディション、あなたとの距離を分かったうえで、その時のチェアとして答えます。",
+     "仲良くなるほど口調が変わります。最初はそっけなく、やがて心配や優しさがこぼれてきます。",
+     "1週間に10回まで送れます。ゲームに内蔵されたAIがあなたのPCで動くので、インターネットなしでも使えます。",
+     "返事はあなたのPCが直接作るため、PCの性能によって返事の速さや自然さが変わることがあります。"
+    ],
+    "02-week-chat.png"
+   ],
+   [
+    "毎週の予定を組む",
+    [
+     "練習、ジム、カフェ、プレゼント、ソルギ（猫）の世話、休息、アルバイト、株までできます。",
+     "無理をすればケガをし、休んでばかりではタイムが伸びません。"
+    ],
+    "04-track-cg.png"
+   ],
+   [
+    "AIチャット：小説とメッセージ",
+    [
+     "セリフはそのまま、行動は*アスタリスク*で囲んで書きます。AIがチェアのセリフとナレーションを一緒に書きます。",
+     "公園の散歩、コンビニの夜食、漢江まで。どこへ行くかはあなたが決めます。",
+     "物語の内容に合わせて、背景の絵とチェアの表情、BGMが一緒に変わります。",
+     "返事の長さと文字の大きさは設定で選べます。",
+     "PCにCodexやClaude Codeがあれば、接続してより長く深みのある文章で楽しむこともできます。（各サービスのアカウントが必要です）",
+     "AIチャットの開始時に、小説かメッセージかを選べます。",
+     "メッセージでは、返事が1行ずつ吹き出しで届き、既読表示と時刻も表示されます。",
+     "返事を待つ間も、続けてメッセージを送れます。",
+     "CodexかClaude Codeを接続すると、チェアが会話に合うYouTube動画やショートを探して送ってくれて、ゲーム内でそのまま見られます。",
+     "CodexかClaude Codeを接続すると実際の時刻と連動し、チェアが今の時間を知った上で話します。"
+    ],
+    "03-free-play.png"
+   ],
+   [
+    "チェアの豊かな表情",
+    [
+     "物語や会話の雰囲気に合わせて、チェアの表情が変わります。",
+     "嬉しいとき、照れたとき、すねたときまで、瞬間ごとに違う顔が見られます。"
+    ]
+   ],
+   [
+    "ご注意",
+    [
+     "AIはゲームで選んだ言語（韓国語・英語・日本語・中国語）で返事をします。",
+     "GPUの性能が低いPCでは、1回の返事に10〜40秒かかったり、ときどき不自然な返事になったりすることがあります。"
+    ]
+   ],
+   [
+    "体験版について",
+    [
+     "プロローグから6週目までの一部をプレイできます。",
+     "한국어、English、日本語、简体中文、繁體中文に対応しています。",
+     "体験版は開発途中のバージョンのため、最終的な完成度とは異なる場合があります。収録範囲は全体の約8〜10%です。",
+     "演出・CG・イラストなどの細かな部分は、開発の過程で変わることがあります。"
+    ]
+   ]
+  ],
+  "caps": {
+   "01-store-choice.png": "選択肢が出るビジュアルノベルの場面",
+   "02-week-chat.png": "週の予定とAIメッセージ",
+   "03-free-play.png": "AIチャット",
+   "04-track-cg.png": "競技場の疾走",
+   "05-beach-cg.png": "海辺の夕焼け",
+   "06-prologue-nvl.png": "1週目の路地",
+   "key": "キービジュアル"
+  },
+  "charH": "登場人物",
+  "chaea": "チェア",
+  "side": "スンヨン",
+  "chaeaD": "20歳、大学1年生の陸上100m選手。目標は9月の全国大会予選。",
+  "sideD": "チェアのお隣さん。",
+  "exprC": "立ち絵の表情7種（基本・無表情・照れ・すね・にらみ・驚き・困り）",
+  "exprS": "立ち絵の表情1種",
+  "cvNote": "声優は製品版で変更になる場合があります。",
+  "langH": "対応言語",
+  "lcols": [
+   "言語",
+   "インターフェース",
+   "音声",
+   "字幕"
+  ],
+  "specH": "動作環境",
+  "spec": [
+   [
+    "OS",
+    "Windows 10 / 11（64ビット）"
+   ],
+   [
+    "プロセッサー",
+    "4コア以上（推奨6コア）"
+   ],
+   [
+    "メモリ",
+    "8GB（推奨16GB）"
+   ],
+   [
+    "グラフィック",
+    "内蔵GPU可 / AIチャットを快適に使うにはVRAM 6GB以上のNVIDIA・AMD"
+   ],
+   [
+    "ストレージ",
+    "7GB"
+   ]
+  ],
+  "sg": {
+   "h": "ご意見・バグ報告",
+   "p": "ゲームへのご要望や見つけたバグをお書きください。送った内容は開発者だけが読めます。",
+   "ph": "例：こんな活動があったらうれしいです",
+   "send": "送信",
+   "empty": "内容を入力してください。",
+   "wait": "少し待ってから送ってください（30秒に1回）。",
+   "sending": "送信中…",
+   "ok": "送信しました。ありがとうございます！",
+   "fail": "送信できませんでした。しばらくしてからもう一度お試しください。",
+   "no": "このリンクからは送信できません。",
+   "login": "ログインすると送信できます。",
+   "ro": "このリンクは閲覧専用のため送信できません。",
+   "inbox": "届いたご意見",
+   "none": "まだご意見はありません。",
+   "anon": "名前なし",
+   "cnt": "件"
+  },
+  "goal": [
+   "正式版の目標",
+   [
+    "24時間リアルタイムで話せる、完成度の高いAI彼女機能",
+    "24週間続く本編と、9月の全国大会予選の結末まで描かれます。",
+    "お隣さん・スンヨンの物語が本格的に始まります。スンヨンにも好感度などさまざまなステータスが加わります。",
+    "スンヨンともAIメッセージで直接会話できます。",
+    "新しいCGが多数追加されます。",
+    "さまざまな表情の立ち絵が追加されます。",
+    "エンディングがさらに多彩になります。",
+    "AIチャットでのチェアの表情や姿がもっと豊かになります。",
+    "そのほかにも、さまざまな機能や画像が順次アップデートされます。"
+   ]
+  ]
+ },
+ "zh-Hans": {
+  "name": "简体中文",
+  "title": "런!（Run!）",
+  "lead": "扭伤的脚踝、我送出的跑鞋，还有一起奔跑的约定。陪伴百米短跑选手彩雅度过24周的养成恋爱视觉小说。",
+  "info": [
+   [
+    "开发商 / 发行商",
+    "Teckhoon Games"
+   ],
+   [
+    "正式版",
+    "即将推出"
+   ],
+   [
+    "试玩版",
+    "序章至第6周的部分内容"
+   ],
+   [
+    "平台",
+    "Windows 10 / 11（64位）"
+   ]
+  ],
+  "tags": [
+   "视觉小说",
+   "养成模拟",
+   "恋爱",
+   "AI对话",
+   "多结局",
+   "运动"
+  ],
+  "cta": "在 STOVE 查看",
+  "ctaSub": "试玩版即将公开",
+  "quote": "“她穿着我送的鞋跑步，然后摔倒了。”",
+  "intro": [
+   "与田径队百米选手彩雅共度24周。",
+   "从一句道歉开始的一个月，每天早上7点的跑步搭档约定，还有九月的全国运动会预选赛在等着你们。",
+   "成绩和心意，你能两者兼得吗？"
+  ],
+  "featH": "主要特色",
+  "feat": [
+   [
+    "养成模拟",
+    "每周选择两项活动，管理彩雅的成绩和状态。"
+   ],
+   [
+    "AI消息",
+    "没有固定选项，把想说的话发出去，彩雅会亲自回复你。"
+   ],
+   [
+    "AI聊天",
+    "通过AI聊天与角色无限制地自由交流。结局之后，也能像写小说一样继续和彩雅的故事。"
+   ],
+   [
+    "多结局",
+    "一个个小选择，决定比赛与恋爱的结局。"
+   ]
+  ],
+  "sec": [
+   [
+    "和彩雅互发AI消息",
+    [
+     "在每周画面下方的消息框里发送任何话，彩雅都会回复。",
+     "她知道现在是第几周、自己的成绩和状态，以及和你的距离，并以当下的彩雅来回答。",
+     "关系越近，语气越不一样：一开始冷淡，后来关心和温柔会慢慢流露出来。",
+     "每周最多10次。游戏内置的AI在你的电脑上运行，无需联网也能使用。",
+     "回复由你的电脑直接生成，因此回复速度和自然程度可能会因电脑性能而有所不同。"
+    ],
+    "02-week-chat.png"
+   ],
+   [
+    "亲手安排每一周",
+    [
+     "训练、健身房、咖啡厅、送礼物、照顾猫咪雪饼、休息、打工，甚至炒股。",
+     "勉强过头会受伤，一味休息成绩就会停滞。"
+    ],
+    "04-track-cg.png"
+   ],
+   [
+    "AI聊天：小说与消息",
+    [
+     "台词直接写，动作用*星号*括起来。AI会同时写出彩雅的台词和旁白。",
+     "公园散步、便利店夜宵、汉江边……去哪里由你决定。",
+     "背景画面、彩雅的表情和背景音乐会随着故事内容一起变化。",
+     "可以在设置中选择回复长度和文字大小。",
+     "如果电脑中装有Codex或Claude Code，也可以连接它们，享受更长、更有深度的文字。（需要各服务的账号）",
+     "开始AI聊天时，可以选择小说或消息方式。",
+     "选择消息方式后，回复会一个气泡一个气泡地发来，还会显示已读标记和时间。",
+     "等待回复时也可以连续发送消息。",
+     "连接Codex或Claude Code后，彩雅会找到符合话题的YouTube视频和Shorts分享给你，在游戏内就能直接观看。",
+     "连接Codex或Claude Code后会与真实时间同步，彩雅知道现在几点再和你聊天。"
+    ],
+    "03-free-play.png"
+   ],
+   [
+    "彩雅丰富的表情",
+    [
+     "彩雅的表情会随着故事和对话气氛变化。",
+     "开心、害羞、闹别扭，每个瞬间都能看到不同的表情。"
+    ]
+   ],
+   [
+    "注意事项",
+    [
+     "AI会用你在游戏中选择的语言（韩语、英语、日语、中文）回复。",
+     "在显卡性能较弱的电脑上，每次回复可能需要10~40秒，偶尔也可能出现不太自然的回复。"
+    ]
+   ],
+   [
+    "试玩版说明",
+    [
+     "可游玩序章至第6周的部分内容。",
+     "支持 한국어、English、日本語、简体中文、繁體中文。",
+     "试玩版仍在开发中，可能与最终品质有所不同。内容约占完整游戏的8~10%。",
+     "演出、CG、插画等细节可能会在开发过程中调整。"
+    ]
+   ]
+  ],
+  "caps": {
+   "01-store-choice.png": "出现选项的视觉小说场景",
+   "02-week-chat.png": "每周安排与AI消息",
+   "03-free-play.png": "AI聊天",
+   "04-track-cg.png": "赛场冲刺",
+   "05-beach-cg.png": "海边夕阳",
+   "06-prologue-nvl.png": "第1周的小巷",
+   "key": "主视觉"
+  },
+  "charH": "登场人物",
+  "chaea": "彩雅",
+  "side": "昇妍",
+  "chaeaD": "20岁，大学一年级田径百米选手。目标是九月的全国运动会预选赛。",
+  "sideD": "彩雅的邻居。",
+  "exprC": "立绘表情7种（默认·面无表情·害羞·赌气·瞪眼·惊讶·为难）",
+  "exprS": "立绘表情1种",
+  "cvNote": "声优可能会在正式版中更换。",
+  "langH": "支持语言",
+  "lcols": [
+   "语言",
+   "界面",
+   "语音",
+   "字幕"
+  ],
+  "specH": "配置需求",
+  "spec": [
+   [
+    "操作系统",
+    "Windows 10 / 11（64位）"
+   ],
+   [
+    "处理器",
+    "4核以上（推荐6核）"
+   ],
+   [
+    "内存",
+    "8GB（推荐16GB）"
+   ],
+   [
+    "显卡",
+    "集成显卡可运行 / 想让AI聊天更流畅，建议6GB以上显存的NVIDIA或AMD显卡"
+   ],
+   [
+    "存储空间",
+    "7GB"
+   ]
+  ],
+  "sg": {
+   "h": "意见建议・错误反馈",
+   "p": "请写下你对游戏的期待或发现的错误。发送的内容只有开发者能看到。",
+   "ph": "例如：希望能加入这样的活动",
+   "send": "发送",
+   "empty": "请先填写内容。",
+   "wait": "请稍后再发送（每30秒一次）。",
+   "sending": "发送中…",
+   "ok": "已发送，谢谢！",
+   "fail": "发送失败，请稍后再试。",
+   "no": "无法通过此链接发送。",
+   "login": "登录后即可发送。",
+   "ro": "此链接为仅查看，无法发送建议。",
+   "inbox": "收到的建议",
+   "none": "还没有收到建议。",
+   "anon": "无名",
+   "cnt": "条"
+  },
+  "goal": [
+   "正式版目标",
+   [
+    "24小时实时互动、高完成度的AI女友功能",
+    "24周的完整故事，直到九月全国运动会预选赛的结局。",
+    "邻居昇妍的故事将正式展开，昇妍也会有好感度等多种数值。",
+    "也能通过AI消息和昇妍直接聊天。",
+    "新增多张CG。",
+    "新增多种表情的立绘。",
+    "结局将更加多样。",
+    "AI聊天中彩雅的表情和造型会更加丰富。",
+    "此外，还会陆续更新更多功能和图片。"
+   ]
+  ]
+ },
+ "zh-Hant": {
+  "name": "繁體中文",
+  "title": "런!（Run!）",
+  "lead": "扭傷的腳踝、我送出的跑鞋，還有一起奔跑的約定。陪伴百米短跑選手彩雅度過24週的養成戀愛視覺小說。",
+  "info": [
+   [
+    "開發商 / 發行商",
+    "Teckhoon Games"
+   ],
+   [
+    "正式版",
+    "即將推出"
+   ],
+   [
+    "試玩版",
+    "序章至第6週的部分內容"
+   ],
+   [
+    "平台",
+    "Windows 10 / 11（64位元）"
+   ]
+  ],
+  "tags": [
+   "視覺小說",
+   "養成模擬",
+   "戀愛",
+   "AI對話",
+   "多結局",
+   "運動"
+  ],
+  "cta": "在 STOVE 查看",
+  "ctaSub": "試玩版即將公開",
+  "quote": "「她穿著我送的鞋跑步，然後跌倒了。」",
+  "intro": [
+   "與田徑隊百米選手彩雅共度24週。",
+   "從一句道歉開始的一個月，每天早上7點的跑步搭檔約定，還有九月的全國運動會預選賽在等著你們。",
+   "成績和心意，你能兩者兼得嗎？"
+  ],
+  "featH": "主要特色",
+  "feat": [
+   [
+    "養成模擬",
+    "每週選擇兩項活動，管理彩雅的成績和狀態。"
+   ],
+   [
+    "AI訊息",
+    "沒有固定選項，把想說的話傳出去，彩雅會親自回覆你。"
+   ],
+   [
+    "AI聊天",
+    "透過AI聊天與角色無限制地自由交流。結局之後，也能像寫小說一樣繼續和彩雅的故事。"
+   ],
+   [
+    "多結局",
+    "一個個小選擇，決定比賽與戀愛的結局。"
+   ]
+  ],
+  "sec": [
+   [
+    "和彩雅互傳AI訊息",
+    [
+     "在每週畫面下方的訊息框裡傳送任何話，彩雅都會回覆。",
+     "她知道現在是第幾週、自己的成績和狀態，以及和你的距離，並以當下的彩雅來回答。",
+     "關係越近，語氣越不一樣：一開始冷淡，後來關心和溫柔會慢慢流露出來。",
+     "每週最多10次。遊戲內建的AI在你的電腦上運行，無需連網也能使用。",
+     "回覆由你的電腦直接生成，因此回覆速度和自然程度可能會因電腦效能而有所不同。"
+    ],
+    "02-week-chat.png"
+   ],
+   [
+    "親手安排每一週",
+    [
+     "訓練、健身房、咖啡廳、送禮物、照顧貓咪雪餅、休息、打工，甚至炒股。",
+     "勉強過頭會受傷，一味休息成績就會停滯。"
+    ],
+    "04-track-cg.png"
+   ],
+   [
+    "AI聊天：小說與訊息",
+    [
+     "台詞直接寫，動作用*星號*括起來。AI會同時寫出彩雅的台詞和旁白。",
+     "公園散步、便利商店宵夜、漢江邊……去哪裡由你決定。",
+     "背景畫面、彩雅的表情和背景音樂會隨著故事內容一起變化。",
+     "可以在設定中選擇回覆長度和文字大小。",
+     "如果電腦中裝有Codex或Claude Code，也可以連接它們，享受更長、更有深度的文字。（需要各服務的帳號）",
+     "開始AI聊天時，可以選擇小說或訊息方式。",
+     "選擇訊息方式後，回覆會一個氣泡一個氣泡地傳來，還會顯示已讀標記和時間。",
+     "等待回覆時也可以連續傳送訊息。",
+     "連接Codex或Claude Code後，彩雅會找到符合話題的YouTube影片和Shorts分享給你，在遊戲內就能直接觀看。",
+     "連接Codex或Claude Code後會與真實時間同步，彩雅知道現在幾點再和你聊天。"
+    ],
+    "03-free-play.png"
+   ],
+   [
+    "彩雅豐富的表情",
+    [
+     "彩雅的表情會隨著故事和對話氣氛變化。",
+     "開心、害羞、鬧彆扭，每個瞬間都能看到不同的表情。"
+    ]
+   ],
+   [
+    "注意事項",
+    [
+     "AI會用你在遊戲中選擇的語言（韓語、英語、日語、中文）回覆。",
+     "在顯示卡效能較弱的電腦上，每次回覆可能需要10~40秒，偶爾也可能出現不太自然的回覆。"
+    ]
+   ],
+   [
+    "試玩版說明",
+    [
+     "可遊玩序章至第6週的部分內容。",
+     "支援 한국어、English、日本語、简体中文、繁體中文。",
+     "試玩版仍在開發中，可能與最終品質有所不同。內容約佔完整遊戲的8~10%。",
+     "演出、CG、插畫等細節可能會在開發過程中調整。"
+    ]
+   ]
+  ],
+  "caps": {
+   "01-store-choice.png": "出現選項的視覺小說場景",
+   "02-week-chat.png": "每週安排與AI訊息",
+   "03-free-play.png": "AI聊天",
+   "04-track-cg.png": "賽場衝刺",
+   "05-beach-cg.png": "海邊夕陽",
+   "06-prologue-nvl.png": "第1週的小巷",
+   "key": "主視覺"
+  },
+  "charH": "登場人物",
+  "chaea": "彩雅",
+  "side": "昇妍",
+  "chaeaD": "20歲，大學一年級田徑百米選手。目標是九月的全國運動會預選賽。",
+  "sideD": "彩雅的鄰居。",
+  "exprC": "立繪表情7種（預設·面無表情·害羞·賭氣·瞪眼·驚訝·為難）",
+  "exprS": "立繪表情1種",
+  "cvNote": "聲優可能會在正式版中更換。",
+  "langH": "支援語言",
+  "lcols": [
+   "語言",
+   "介面",
+   "語音",
+   "字幕"
+  ],
+  "specH": "配備需求",
+  "spec": [
+   [
+    "作業系統",
+    "Windows 10 / 11（64位元）"
+   ],
+   [
+    "處理器",
+    "4核以上（建議6核）"
+   ],
+   [
+    "記憶體",
+    "8GB（建議16GB）"
+   ],
+   [
+    "顯示卡",
+    "內建顯示卡可執行 / 想讓AI聊天更流暢，建議6GB以上顯示記憶體的NVIDIA或AMD顯示卡"
+   ],
+   [
+    "儲存空間",
+    "7GB"
+   ]
+  ],
+  "sg": {
+   "h": "意見建議・錯誤回報",
+   "p": "請寫下你對遊戲的期待或發現的錯誤。傳送的內容只有開發者能看到。",
+   "ph": "例如：希望能加入這樣的活動",
+   "send": "傳送",
+   "empty": "請先填寫內容。",
+   "wait": "請稍後再傳送（每30秒一次）。",
+   "sending": "傳送中…",
+   "ok": "已傳送，謝謝！",
+   "fail": "傳送失敗，請稍後再試。",
+   "no": "無法透過此連結傳送。",
+   "login": "登入後即可傳送。",
+   "ro": "此連結為僅檢視，無法傳送建議。",
+   "inbox": "收到的建議",
+   "none": "還沒有收到建議。",
+   "anon": "無名",
+   "cnt": "則"
+  },
+  "goal": [
+   "正式版目標",
+   [
+    "24小時即時互動、高完成度的AI女友功能",
+    "24週的完整故事，直到九月全國運動會預選賽的結局。",
+    "鄰居昇妍的故事將正式展開，昇妍也會有好感度等多種數值。",
+    "也能透過AI訊息和昇妍直接聊天。",
+    "新增多張CG。",
+    "新增多種表情的立繪。",
+    "結局將更加多樣。",
+    "AI聊天中彩雅的表情和造型會更加豐富。",
+    "此外，還會陸續更新更多功能和圖片。"
+   ]
+  ]
+ }
 };
 const ORDER = ['ko', 'en', 'ja', 'zh-Hans', 'zh-Hant'];
 // 맨 위 알림 띠 (언어별)
 const NOTICE = {
-  ko: { demo: '데모', ai: '현재 로컬 AI는 학습 중이라 대사나 문장이 미흡할 수 있습니다. 정식 출시 전까지 학습을 완료하도록 하겠습니다. ChatGPT나 Claude를 구독 중이시라면 가급적 해당 기능을 사용해 주시면 감사하겠습니다.', eta: '지금 데모에는 목소리가 들어가 있지 않습니다. 데모 버전 한국어 풀보이스 더빙은 2026년 11월 15일 업데이트 예정입니다.' },
-  en: { demo: 'DEMO', ai: 'The local AI is still in training, so its lines and sentences may feel a little rough. We\'ll finish training it before the full release. If you subscribe to ChatGPT or Claude, we\'d appreciate it if you used that option instead.', eta: 'This demo currently has no voice acting. Full Korean voice acting for the demo version arrives in the November 15, 2026 update.' },
-  ja: { demo: 'デモ', ai: '現在、ローカルAIは学習中のため、セリフや文章が不自然な場合があります。正式リリースまでに学習を完了させる予定です。ChatGPTまたはClaudeをご契約中の方は、できるだけそちらの機能をご利用いただけると幸いです。', eta: '現在の体験版にはボイスが入っていません。体験版の韓国語フルボイスは2026年11月15日のアップデートで対応予定です。' },
-  'zh-Hans': { demo: '试玩版', ai: '目前本地AI仍在训练中，台词和句子可能不够自然。我们将在正式发售前完成训练。如果您订阅了ChatGPT或Claude，建议尽量使用相应功能。', eta: '目前试玩版暂无语音。试玩版韩语全程配音将于2026年11月15日更新加入。' },
-  'zh-Hant': { demo: '試玩版', ai: '目前本機AI仍在訓練中，台詞和句子可能不夠自然。我們將在正式發售前完成訓練。如果您訂閱了ChatGPT或Claude，建議盡量使用相應功能。', eta: '目前試玩版暫無語音。試玩版韓語全程配音將於2026年11月15日更新加入。' },
+ "ko": {
+  "demo": "데모",
+  "ai": "현재 로컬 AI는 학습 중이라 대사나 문장이 미흡할 수 있습니다. 정식 출시 전까지 학습을 완료해 보도록 노력해 보겠습니다. ChatGPT나 Claude를 구독 중이시라면 가급적 해당 기능을 사용해 주시면 감사하겠습니다.",
+  "eta": "지금 데모에는 목소리가 들어가 있지 않습니다. 데모 버전 한국어 풀보이스 더빙은 2026년 11월 15일 업데이트 예정입니다."
+ },
+ "en": {
+  "demo": "DEMO",
+  "ai": "The local AI is still in training, so its lines and sentences may feel a little rough. We'll do our best to finish training it before the full release. If you subscribe to ChatGPT or Claude, we'd appreciate it if you used that option instead.",
+  "eta": "This demo currently has no voice acting. Full Korean voice acting for the demo version arrives in the November 15, 2026 update."
+ },
+ "ja": {
+  "demo": "デモ",
+  "ai": "現在、ローカルAIは学習中のため、セリフや文章が不自然な場合があります。正式リリースまでに学習を完了できるよう努めてまいります。ChatGPTまたはClaudeをご契約中の方は、できるだけそちらの機能をご利用いただけると幸いです。",
+  "eta": "現在の体験版にはボイスが入っていません。体験版の韓国語フルボイスは2026年11月15日のアップデートで対応予定です。"
+ },
+ "zh-Hans": {
+  "demo": "试玩版",
+  "ai": "目前本地AI仍在训练中，台词和句子可能不够自然。我们会努力在正式发售前完成训练。如果您订阅了ChatGPT或Claude，建议尽量使用相应功能。",
+  "eta": "目前试玩版暂无语音。试玩版韩语全程配音将于2026年11月15日更新加入。"
+ },
+ "zh-Hant": {
+  "demo": "試玩版",
+  "ai": "目前本機AI仍在訓練中，台詞和句子可能不夠自然。我們會努力在正式發售前完成訓練。如果您訂閱了ChatGPT或Claude，建議盡量使用相應功能。",
+  "eta": "目前試玩版暫無語音。試玩版韓語全程配音將於2026年11月15日更新加入。"
+ }
 };
 const SHOTS = ['01-store-choice.png', '02-week-chat.png', '03-free-play.png', '04-track-cg.png', '05-beach-cg.png', '06-prologue-nvl.png'];
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -279,13 +1174,15 @@ function render() {
   </section>
   <section class="body">
     <article class="desc">
+      <h2>${esc(T.goal[0])}</h2><ul>${T.goal[1].map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+      ${fig('05-beach-cg.png')}
       <p class="quote">${esc(T.quote)}</p>
       <p>${T.intro.map(esc).join('<br>')}</p>
       ${fig('06-prologue-nvl.png')}
       <h2>${esc(T.featH)}</h2>
       <ul class="feat">${T.feat.map(([a, b]) => `<li><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ul>
       ${fig('01-store-choice.png')}
-      ${T.sec.map(([h, items, shot], i) => `<h2>${esc(h)}</h2><ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>${shot ? fig(shot) : ''}${i === 2 ? `<figure class="shot"><img src="${img('07-expressions.png')}" alt="${esc(T.exprC)}" loading="lazy"><figcaption>${esc(T.exprC)}</figcaption></figure>` : ''}`).join('')}
+      ${T.sec.map(([h, items, shot], i) => `<h2>${esc(h)}</h2><ul>${items.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>${shot ? fig(shot) : ''}${i === 3 ? `<figure class="shot"><img src="${img('07-expressions.png')}" alt="${esc(T.exprC)}" loading="lazy"><figcaption>${esc(T.exprC)}</figcaption></figure>` : ''}`).join('')}
     </article>
     <aside class="side">
       <div class="box">
